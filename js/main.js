@@ -228,48 +228,74 @@
     if (!actx) actx = new AC();
     if (actx.state === 'suspended') actx.resume();
     master = actx.createGain(); master.gain.value = 0;
+
+    // 整體柔化：低通修圓高頻毛邊，聽感更放鬆
+    const softLP = actx.createBiquadFilter(); softLP.type = 'lowpass'; softLP.frequency.value = 3600; softLP.Q.value = 0.3;
+    // 動態壓縮：較溫和的比例，避免浪峰刺耳
     const comp = actx.createDynamicsCompressor();
-    comp.threshold.value = -20; comp.ratio.value = 3; comp.attack.value = 0.05; comp.release.value = 0.6;
-    master.connect(comp).connect(actx.destination);
-    const reverb = actx.createConvolver(); reverb.buffer = impulse(2.8, 2.4);
-    const reverbGain = actx.createGain(); reverbGain.gain.value = 0.22; reverb.connect(reverbGain).connect(master);
-    const noiseBuf = brownNoise(9);
+    comp.threshold.value = -24; comp.ratio.value = 2.5; comp.attack.value = 0.08; comp.release.value = 0.8;
+    master.connect(softLP).connect(comp).connect(actx.destination);
+
+    // 空間殘響：加長加深，更空靈寬闊
+    const reverb = actx.createConvolver(); reverb.buffer = impulse(3.6, 2.6);
+    const reverbGain = actx.createGain(); reverbGain.gain.value = 0.28; reverb.connect(reverbGain).connect(master);
+
+    const noiseBuf = brownNoise(12);
     const track = (n) => { sessionNodes.push(n); return n; };
-    const noiseSrc = () => { const s = track(actx.createBufferSource()); s.buffer = noiseBuf; s.loop = true; s.start(0, Math.random() * 8.5); return s; };
-    // 海床
+    const noiseSrc = () => { const s = track(actx.createBufferSource()); s.buffer = noiseBuf; s.loop = true; s.start(0, Math.random() * 11); return s; };
+
+    // 1. 深海底鳴（極低頻，安定襯底）
+    const deep = noiseSrc();
+    const deepLP = actx.createBiquadFilter(); deepLP.type = 'lowpass'; deepLP.frequency.value = 90; deepLP.Q.value = 0.5;
+    const deepG = actx.createGain(); deepG.gain.value = 0.07; deep.connect(deepLP).connect(deepG).connect(master);
+
+    // 2. 海床底噪（柔和中低頻，鋪底）
     const bed = noiseSrc();
-    const bedLP = actx.createBiquadFilter(); bedLP.type = 'lowpass'; bedLP.frequency.value = 460; bedLP.Q.value = 0.4;
-    const bedG = actx.createGain(); bedG.gain.value = 0.10; bed.connect(bedLP).connect(bedG); bedG.connect(master); bedG.connect(reverb);
-    // 低頻海湧
-    const rum = noiseSrc();
-    const rumLP = actx.createBiquadFilter(); rumLP.type = 'lowpass'; rumLP.frequency.value = 120; rumLP.Q.value = 0.6;
-    const rumG = actx.createGain(); rumG.gain.value = 0.06; rum.connect(rumLP).connect(rumG).connect(master);
-    // 緩慢湧浪
-    function swell(rate, pan, cutoff, baseGain, swing) {
-      const src = noiseSrc();
-      const lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = cutoff; lp.Q.value = 0.7;
-      const g = actx.createGain(); g.gain.value = baseGain;
-      const pn = actx.createStereoPanner(); pn.pan.value = pan;
-      src.connect(lp).connect(g).connect(pn); pn.connect(master); g.connect(reverb);
+    const bedLP = actx.createBiquadFilter(); bedLP.type = 'lowpass'; bedLP.frequency.value = 420; bedLP.Q.value = 0.4;
+    const bedG = actx.createGain(); bedG.gain.value = 0.07; bed.connect(bedLP).connect(bedG); bedG.connect(master); bedG.connect(reverb);
+
+    // 一道浪 = 浪體（低通漸強漸弱）＋ 相位延後的碎沫（高通沙沙＝浪拍碎後的泡沫）
+    function wave(rate, pan, bodyCut, bodyGain, foamGain, foamFrac) {
+      // 浪體：谷底低、浪峰高；同步調制低通截頻 → 浪近時更亮、浪退時轉悶
+      const bodySrc = noiseSrc();
+      const lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = bodyCut; lp.Q.value = 0.6;
+      const bg = actx.createGain(); bg.gain.value = bodyGain * 0.55;
+      const bpan = actx.createStereoPanner(); bpan.pan.value = pan;
+      bodySrc.connect(lp).connect(bg).connect(bpan); bpan.connect(master); bg.connect(reverb);
       const lfo = track(actx.createOscillator()); lfo.type = 'sine'; lfo.frequency.value = rate;
-      const lfoG = actx.createGain(); lfoG.gain.value = swing; lfo.connect(lfoG).connect(g.gain);
-      const lfoC = actx.createGain(); lfoC.gain.value = cutoff * 0.6; lfo.connect(lfoC).connect(lp.frequency);
+      const lfoBody = actx.createGain(); lfoBody.gain.value = bodyGain * 0.45; lfo.connect(lfoBody).connect(bg.gain);
+      const lfoCut = actx.createGain(); lfoCut.gain.value = bodyCut * 0.5; lfo.connect(lfoCut).connect(lp.frequency);
       lfo.start();
+
+      // 浪花泡沫：跟著浪峰、相位稍延後（先湧後碎）
+      const foamSrc = noiseSrc();
+      const hp = actx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1600; hp.Q.value = 0.4;
+      const fg = actx.createGain(); fg.gain.value = foamGain * 0.5;
+      const fpan = actx.createStereoPanner(); fpan.pan.value = pan * 0.8;
+      foamSrc.connect(hp).connect(fg).connect(fpan); fpan.connect(master); fg.connect(reverb);
+      const foamLfo = track(actx.createOscillator()); foamLfo.type = 'sine'; foamLfo.frequency.value = rate;
+      const foamLfoG = actx.createGain(); foamLfoG.gain.value = foamGain * 0.45; foamLfo.connect(foamLfoG).connect(fg.gain);
+      foamLfo.start(actx.currentTime + foamFrac / rate); // 延後相位 = 浪拍碎的時間差
     }
-    swell(0.067, -0.5, 700, 0.17, 0.15);
-    swell(0.049,  0.5, 620, 0.15, 0.14);
-    // 浪花泡沫
-    (function foam(rate, pan) {
-      const src = noiseSrc();
-      const hp = actx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1800; hp.Q.value = 0.5;
-      const g = actx.createGain(); g.gain.value = 0.045;
-      const pn = actx.createStereoPanner(); pn.pan.value = pan;
-      src.connect(hp).connect(g).connect(pn); pn.connect(master); g.connect(reverb);
-      const lfo = track(actx.createOscillator()); lfo.type = 'sine'; lfo.frequency.value = rate;
-      const lfoG = actx.createGain(); lfoG.gain.value = 0.045; lfo.connect(lfoG).connect(g.gain); lfo.start();
-    })(0.084, 0.3);
+
+    // 多道不可通約頻率 → 浪起浪落自然不規則、層次分明
+    wave(0.045, -0.45, 650, 0.16, 0.05,  0.08); // 近浪（左）
+    wave(0.063,  0.45, 560, 0.13, 0.045, 0.09); // 中浪（右）
+    wave(0.034,  0.00, 760, 0.15, 0.04,  0.07); // 遠來大湧（中）較慢
+    wave(0.078,  0.25, 500, 0.10, 0.035, 0.10); // 細碎近岸浪（右偏）
+
+    // 退潮回吸的細沙沫（持續、極輕，增厚層次）
+    const wash = noiseSrc();
+    const washBP = actx.createBiquadFilter(); washBP.type = 'bandpass'; washBP.frequency.value = 2200; washBP.Q.value = 0.7;
+    const washG = actx.createGain(); washG.gain.value = 0.02;
+    const washPan = actx.createStereoPanner(); washPan.pan.value = -0.2;
+    wash.connect(washBP).connect(washG).connect(washPan); washPan.connect(master);
+    const washLfo = track(actx.createOscillator()); washLfo.type = 'sine'; washLfo.frequency.value = 0.11;
+    const washLfoG = actx.createGain(); washLfoG.gain.value = 0.014; washLfo.connect(washLfoG).connect(washG.gain); washLfo.start();
+
+    // 緩起拉長、目標音量略降，更輕柔
     master.gain.setValueAtTime(0, actx.currentTime);
-    master.gain.linearRampToValueAtTime(0.5, actx.currentTime + 2.2);
+    master.gain.linearRampToValueAtTime(0.42, actx.currentTime + 3.5);
     playing = true; audioBtn.classList.add('playing'); audioBtn.setAttribute('aria-pressed', 'true'); audioLabel.textContent = '播放中';
   }
   function stopAudio() {
