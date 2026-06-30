@@ -1,0 +1,21 @@
+# ───── 舊版設計備份（改由 Git 歷史管理，不納入版本控管）─────
+backup_*/
+
+# 規劃文件的重複副本
+old/
+
+# ───── 作業系統 / 編輯器雜項 ─────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+.vscode/
+.idea/
+*.swp
+*~
+
+# ───── 相依套件（若日後加入建置工具）─────
+node_modules/
+dist/
+.cache/

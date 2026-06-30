@@ -1,0 +1,13 @@
+# 統一文字檔換行為 LF，避免 Windows / macOS / Linux 之間的換行差異
+* text=auto eol=lf
+
+# 明確標示二進位檔（若日後加入圖片等素材）
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.mp3  binary
+*.woff binary
+*.woff2 binary

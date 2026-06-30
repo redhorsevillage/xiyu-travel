@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漁翁島・西嶼鄉｜古樸漁港 — 澎湖西嶼旅遊與 Google 地圖路線</title>
+<meta name="description" content="澎湖縣西嶼鄉（漁翁島）旅遊網站 — 以古樸斑駁的漁港復古美學，走訪二崁聚落、大菓葉柱狀玄武岩、漁翁島燈塔與池西岩石，內嵌 Google 地圖互動路線與一鍵導航。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%237A2224'/%3E%3Ctext x='50' y='74' font-size='62' text-anchor='middle' fill='%23F1EAD8' font-family='serif' font-weight='900'%3E漁%3C/text%3E%3C/svg%3E">
+</head>
+<body id="top">
+
+<!-- ===== 導覽列 ===== -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand">
+    <svg class="seal" viewBox="0 0 64 64" aria-hidden="true">
+      <rect x="4" y="4" width="56" height="56" rx="8" fill="#7A2224"/>
+      <rect x="9" y="9" width="46" height="46" rx="5" fill="none" stroke="#F1EAD8" stroke-width="2"/>
+      <text x="32" y="44" font-size="34" text-anchor="middle" fill="#F1EAD8" font-family="serif" font-weight="900">漁</text>
+    </svg>
+    <span><b>漁翁島・西嶼</b><small>PENGHU XIYU TOWNSHIP</small></span>
+  </a>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#history">漁翁故事</a>
+    <a href="#culture">歲時節慶</a>
+    <a href="#scenic">海天奇景</a>
+    <a href="#food">鹹鮮風味</a>
+    <a href="#planner">探活踩風</a>
+    <a href="#postcard">寄情明信片</a>
+  </div>
+
+  <div style="display:flex; align-items:center; gap:.8rem;">
+    <button class="audio-btn" id="audioBtn" aria-pressed="false" title="切換背景音樂">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span id="audioLabel">海潮聲</span>
+    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單">☰</button>
+  </div>
+</nav>
+
+<!-- ===== 首頁 Hero ===== -->
+<header class="hero">
+  <div class="lamp" aria-hidden="true"></div>
+  <div class="hero-seal" aria-hidden="true"><span>漁翁島</span></div>
+
+  <svg class="skyline" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="#06222A">
+      <path d="M40 120 V70 L70 30 L110 64 Q230 96 350 64 L390 30 L420 70 V120 Z"/>
+      <path d="M470 120 V66 L500 22 L518 48 L548 26 Q620 92 692 26 L722 48 L740 22 L770 66 V120 Z"/>
+      <path d="M820 120 V58 q40 0 54-24 q15-30 42-30 t42 30 q14 24 54 24 V120 Z"/>
+      <path d="M1010 120 V72 L1040 34 L1080 66 Q1130 88 1170 66 V120 Z"/>
+    </g>
+  </svg>
+
+  <div class="hero-inner reveal">
+    <p class="tag">PENGHU ・ XIYU ・ 漁翁島</p>
+    <h1>斑駁咾咕石上的<span class="accent">漁港歲月</span><br>聽海風訴說<span class="accent">西嶼百年</span></h1>
+    <p class="lead">鹽蝕的船漆、煤油燈的微光與茶漬般的舊宣紙。<br>這座被稱作「漁翁島」的西嶼，把討海人的故事，都醃進了時光裡。</p>
+    <div class="hero-cta">
+      <a href="#history" class="btn btn-primary">走進漁翁故事 ⚓</a>
+      <a href="#planner" class="btn btn-ghost">開啟地圖路線</a>
+    </div>
+  </div>
+
+  <div class="hero-waves" aria-hidden="true">
+    <svg viewBox="0 0 2880 130" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:200%;">
+      <path class="w2" fill="rgba(241,234,216,.35)" d="M0 86 Q360 54 720 86 T1440 86 T2160 86 T2880 86 V130 H0Z"/>
+    </svg>
+    <svg viewBox="0 0 2880 130" preserveAspectRatio="none" style="position:absolute;left:0;bottom:0;width:200%;">
+      <path class="w1" fill="#F1EAD8" d="M0 102 Q360 74 720 102 T1440 102 T2160 102 T2880 102 V130 H0Z"/>
+    </svg>
+  </div>
+
+  <a href="#history" class="scroll-hint">SCROLL<span></span></a>
+</header>
+
+<!-- ===== 1. 漁翁故事 History ===== -->
+<section class="history" id="history">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow">History</span>
+      <h2>漁翁故事・西嶼的來時路</h2>
+      <p>從一座島的名字開始，翻開西嶼在大航海與戰火之間的百年扉頁。</p>
+    </div>
+    <div class="scroll-paper reveal">
+      <p class="intro">西嶼鄉，舊稱「<b>漁翁島</b>」，是澎湖群島中歷史最悠久的島嶼之一。它扼守台灣海峽要衝，自古便是漁船與商旅進出澎湖內海的門戶；海風裡，醃著荷蘭、明鄭、清領與日治層層疊疊的時光。</p>
+      <div class="htimeline" id="htimeline"></div>
+    </div>
+  </div>
+</section>
+
+<div class="rope" aria-hidden="true"></div>
+
+<!-- ===== 2. 歲時節慶 Culture ===== -->
+<section class="culture" id="culture" style="background-color:#7A2224; background-image:repeating-linear-gradient(0deg,rgba(40,8,9,.4) 0 3px,transparent 3px 30px),repeating-linear-gradient(90deg,rgba(40,8,9,.32) 0 3px,transparent 3px 70px),linear-gradient(180deg,rgba(255,255,255,.04),transparent 40%); background-size:70px 30px,70px 30px,100% 100%;">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow" style="color:#E2BE5C;">Culture &amp; Faith</span>
+      <h2>歲時節慶・人文與信仰</h2>
+      <p>菜宅擋風、咾咕石砌牆、廟埕香火與街角的石敢當——西嶼人的日子，是與風和海協商出來的智慧。</p>
+    </div>
+    <div class="culture-grid reveal" id="cultureGrid"></div>
+  </div>
+</section>
+
+<div class="eave" aria-hidden="true"></div>
+
+<!-- ===== 3. 海天奇景 Scenic ===== -->
+<section class="scenic" id="scenic">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow">Scenic Spots</span>
+      <h2>海天奇景・西嶼風景印象</h2>
+      <p>真實影像收藏西嶼經典 ——輕觸卡片，走進每一處的故事。</p>
+    </div>
+    <div class="scenic-grid reveal" id="scenicGrid"></div>
+  </div>
+</section>
+
+<div class="rope" aria-hidden="true"></div>
+
+<!-- ===== 4. 鹹鮮風味 Gastronomy ===== -->
+<section class="food" id="food">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow">Gastronomy</span>
+      <h2>鹹鮮風味・西嶼滋味</h2>
+      <p>從手磨杏仁茶到鮮甜小管，輕觸木牌翻面，看看每道在地滋味與推薦店家。</p>
+    </div>
+    <div class="food-grid reveal" id="foodGrid"></div>
+  </div>
+</section>
+
+<div class="eave" aria-hidden="true"></div>
+
+<!-- ===== 5. 探活踩風 Planner（Google 地圖）===== -->
+<section class="planner" id="planner">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow">Travel Planner · Google Maps</span>
+      <h2>探活踩風・地圖路線</h2>
+      <p>選一條主題路線，點時間軸的站點，右側 Google 地圖即時定位；一鍵開啟多點導航。</p>
+    </div>
+
+    <div class="route-tabs reveal" id="routeTabs">
+      <button class="route-tab active" data-route="half">半日遊<span class="sub">精華半日・5 站</span></button>
+      <button class="route-tab" data-route="full">一日遊<span class="sub">環島深度・11 站</span></button>
+    </div>
+
+    <div class="planner-body reveal">
+      <div class="timeline" id="timeline"></div>
+
+      <div class="map-col">
+        <div class="map-frame">
+          <span class="screw tr"></span><span class="screw bl"></span><span class="screw br"></span>
+          <iframe id="mapFrame" title="西嶼景點 Google 地圖" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=%E6%BE%8E%E6%B9%96%E8%A5%BF%E5%B6%BC%E9%84%89&z=12&hl=zh-TW&output=embed"></iframe>
+        </div>
+        <p class="map-cap" id="mapCap">目前定位：澎湖西嶼鄉</p>
+        <a class="btn-nav" id="navBtn" href="#" target="_blank" rel="noopener">🧭 開啟 Google Maps 完整路徑導航</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="eave" aria-hidden="true"></div>
+
+<!-- ===== 6. 寄情漁翁島 DIY 明信片 ===== -->
+<section class="postcard" id="postcard">
+  <div class="shell">
+    <div class="section-head reveal">
+      <span class="eyebrow">DIY Postcard</span>
+      <h2>寄情漁翁島・手作明信片</h2>
+      <p>挑張西嶼風景，拖曳石敢當、討海女與仙人掌貼紙，寫下祝福，下載屬於你的明信片。</p>
+    </div>
+
+    <div class="pc-studio reveal">
+      <div class="pc-stage">
+        <canvas id="pcCanvas" width="800" height="520" aria-label="明信片畫布"></canvas>
+        <p class="pc-hint">💡 拖曳貼紙可移動；點選貼紙後拖右下角控點可縮放、雙擊可刪除。</p>
+      </div>
+
+      <div class="pc-panel">
+        <label>① 選擇背景風景</label>
+        <div class="pc-row" id="bgPick"></div>
+
+        <label>② 點按加入裝飾貼紙</label>
+        <div class="sticker-tray" id="stickerTray"></div>
+
+        <label for="pcMsg">③ 寫下寄語（最多 36 字）</label>
+        <textarea id="pcMsg" rows="2" maxlength="36" placeholder="願你也來聽聽，西嶼的海風。"></textarea>
+
+        <label>④ 寄語字體</label>
+        <div class="font-pick" id="fontPick">
+          <button data-font="serif" class="active">宋體</button>
+          <button data-font="brush" class="brush">毛筆</button>
+        </div>
+
+        <div class="pc-actions">
+          <button class="btn-sm btn-clear" id="pcClear">清除貼紙</button>
+          <button class="btn-sm btn-dl" id="pcDownload">下載明信片 ↓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 頁尾 ===== -->
+<footer class="footer">
+  <div class="shell">
+    <div class="seal-pair" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="8" fill="#7A2224"/><text x="32" y="45" font-size="30" text-anchor="middle" fill="#F1EAD8" font-family="serif" font-weight="900">石敢當</text></svg>
+      <svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="8" fill="#1E6B7B"/><path d="M32 16c10 6 16 6 16 0 0 14-7 20-16 28-9-8-16-14-16-28 0 6 6 6 16 0z" fill="#F1EAD8"/></svg>
+    </div>
+    <h3>漁翁島・西嶼鄉</h3>
+    <p class="sub">古樸漁港・歲月斑駁的討海故事</p>
+    <nav class="fnav">
+      <a href="#history">漁翁故事</a>
+      <a href="#culture">歲時節慶</a>
+      <a href="#scenic">海天奇景</a>
+      <a href="#food">鹹鮮風味</a>
+      <a href="#planner">探活踩風</a>
+      <a href="#postcard">寄情明信片</a>
+    </nav>
+    <small>© 2026 漁翁島旅遊概念網站｜本站為設計示範作品，景點與店家資訊請以澎湖縣政府觀光發展處公告為準。實景照片來源：Wikimedia Commons。</small>
+  </div>
+</footer>
+
+<!-- ===== 燈箱 ===== -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <div class="modal-hero">
+      <div class="scene" id="modalScene"></div>
+      <div class="grad"></div>
+      <div class="seal" id="modalSeal" aria-hidden="true"></div>
+      <button class="close" id="modalClose" aria-label="關閉">×</button>
+      <div class="title">
+        <span class="eng" id="modalEng"></span>
+        <h3 id="modalTitle"></h3>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p id="modalText"></p>
+      <div class="facts" id="modalFacts"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/postcard.js"></script>
+</body>
+</html>

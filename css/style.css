@@ -1,0 +1,391 @@
+/* =========================================================================
+   漁翁島・西嶼鄉旅遊網站  —  v4「古樸漁港」復古漁港美學
+   斑駁懷舊 × 海鹽侵蝕 × 手工溫度  |  舊宣紙 / 飛白墨跡邊框 / 木匾對聯
+   ========================================================================= */
+
+/* ----- 1. 設計變數 Design Tokens ----------------------------------------- */
+:root {
+  /* 歲月磚絳紅 Charcoal Terracotta */
+  --terra:      #7A2224;
+  --terra-dark: #541517;
+  /* 鹽蝕船漆青 Oxidized Ship Teal */
+  --teal:       #1E6B7B;
+  --teal-dark:  #124E5B;
+  --teal-light: #4E97A6;
+  /* 煤油燈金 Kerosene Lamp Gold */
+  --gold:       #C59B27;
+  --gold-light: #E2BE5C;
+  /* 茶漬舊宣紙 Stained Parchment */
+  --paper:      #F1EAD8;
+  --paper-deep: #D9CDB0;
+  --paper-warm: #E9DEC2;
+  /* 風化玄武岩褐 Weathered Basalt */
+  --ink:        #3E3C3A;
+  --ink-soft:   #5A5550;
+  --wood:       #5A3D29;
+  --wood-dark:  #3F2A1C;
+
+  --grad-sea:   linear-gradient(168deg, #0E3D47 0%, #124E5B 45%, #1E6B7B 100%);
+  --grad-terra: linear-gradient(135deg, var(--terra-dark) 0%, var(--terra) 100%);
+
+  --shadow-card: 0 22px 46px -24px rgba(40,28,18,.6);
+  --shadow-soft: 0 12px 26px -16px rgba(40,28,18,.5);
+
+  --serif: "Noto Serif TC", "Songti TC", serif;
+  --sans:  "Noto Sans TC", "Outfit", "PingFang TC", sans-serif;
+  --brush: "Ma Shan Zheng", "Noto Serif TC", cursive;
+
+  /* 飛白墨跡邊框（粗黑手繪線條，feTurbulence 位移營造乾擦感）*/
+  --ink-frame: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045' numOctaves='2' seed='7' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='5.5'/%3E%3C/filter%3E%3C/defs%3E%3Crect x='7' y='7' width='86' height='86' fill='none' stroke='%233E3C3A' stroke-width='4.5' filter='url(%23w)'/%3E%3Crect x='7' y='7' width='86' height='86' fill='none' stroke='%233E3C3A' stroke-width='1.5' opacity='0.45'/%3E%3C/svg%3E");
+
+  --maxw: 1200px;
+}
+
+/* ----- 2. Reset & Base --------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--sans); color: var(--ink);
+  background-color: var(--paper); line-height: 1.85; overflow-x: hidden;
+  background-image:
+    radial-gradient(rgba(90,61,41,.05) 1px, transparent 1.5px),
+    linear-gradient(115deg, rgba(90,61,41,.02) 0 2px, transparent 2px 9px);
+  background-size: 19px 19px, 100% 100%;
+}
+/* 舊宣紙顆粒覆蓋層（全站極微弱）*/
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: .05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+h1,h2,h3,h4 { font-family: var(--serif); font-weight: 900; line-height: 1.3; margin: 0; letter-spacing: .02em; }
+section { position: relative; }
+::selection { background: var(--terra); color: var(--paper); }
+
+/* ----- 3. 共用排版 ------------------------------------------------------- */
+.shell { width: min(100% - 2.4rem, var(--maxw)); margin-inline: auto; }
+
+.eyebrow {
+  font-family: var(--sans); font-weight: 700; font-size: .76rem; letter-spacing: .34em;
+  color: var(--terra); display: inline-flex; align-items: center; gap: .6rem; text-transform: uppercase;
+}
+.eyebrow::before, .eyebrow::after { content: ""; width: 22px; height: 2px; background: currentColor; }
+
+.section-head { text-align: center; max-width: 680px; margin: 0 auto 3rem; }
+.section-head h2 {
+  font-size: clamp(1.9rem, 5vw, 2.9rem); color: var(--ink); margin: .7rem 0 .8rem; position: relative; display: inline-block;
+}
+/* 飛白筆刷底線 */
+.section-head h2::after {
+  content: ""; position: absolute; left: 50%; bottom: -.7rem; transform: translateX(-50%);
+  width: 120px; height: 12px;
+  background: var(--terra);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12'%3E%3Cpath d='M2 7 Q30 2 60 6 T118 5' stroke='%23000' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='12' viewBox='0 0 120 12'%3E%3Cpath d='M2 7 Q30 2 60 6 T118 5' stroke='%23000' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.section-head .jp { display:none; }
+.section-head p { color: var(--ink-soft); font-size: 1.02rem; margin: 1.2rem 0 0; }
+
+/* 木匾標題（碑刻金字）*/
+.signboard {
+  display: inline-block; padding: .5rem 1.4rem; border-radius: 4px; color: var(--gold-light);
+  font-family: var(--serif); font-weight: 900;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 40%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.10) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, #5A3D29, #3F2A1C);
+  box-shadow: inset 0 0 0 2px rgba(197,155,39,.4), inset 0 2px 6px rgba(0,0,0,.4), 0 6px 14px -8px rgba(0,0,0,.6);
+  text-shadow: 0 1px 0 rgba(0,0,0,.6), 0 -1px 0 rgba(255,255,255,.06);
+}
+
+/* 飛白墨框 工具類 */
+.inked { border: 9px solid transparent; border-image: var(--ink-frame) 16 / 9px / 0 round; background-clip: padding-box; }
+
+/* 復古按鈕（木牌釘） */
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem; padding: .9rem 1.9rem;
+  font-family: var(--serif); font-weight: 900; font-size: 1rem; letter-spacing: .05em; position: relative;
+  transition: transform .25s, box-shadow .25s, background .25s; border-radius: 3px;
+}
+.btn-primary { background: var(--grad-terra); color: var(--paper); box-shadow: 0 5px 0 #3A0E10, inset 0 0 0 2px rgba(197,155,39,.35); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 0 #3A0E10, inset 0 0 0 2px rgba(197,155,39,.35); }
+.btn-primary:active { transform: translateY(2px); box-shadow: 0 3px 0 #3A0E10; }
+.btn-ghost { border: 2px solid rgba(241,234,216,.7); color: var(--paper); }
+.btn-ghost:hover { background: rgba(241,234,216,.14); transform: translateY(-3px); }
+
+/* ----- 4. 麻繩飾帶 + 燕尾脊分隔（沿用古樸質感）------------------------- */
+.rope {
+  height: 16px;
+  background:
+    repeating-linear-gradient(60deg, var(--gold) 0 7px, var(--wood) 7px 14px);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='16' viewBox='0 0 28 16'%3E%3Cpath d='M0 8 Q7 0 14 8 T28 8' stroke='%23000' stroke-width='7' fill='none'/%3E%3C/svg%3E") repeat-x center / auto 16px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='16' viewBox='0 0 28 16'%3E%3Cpath d='M0 8 Q7 0 14 8 T28 8' stroke='%23000' stroke-width='7' fill='none'/%3E%3C/svg%3E") repeat-x center / auto 16px;
+  opacity: .8;
+}
+.eave {
+  position: relative; height: 70px; line-height: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 120 L0 66 L8 66 L18 14 L34 42 L58 22 Q600 88 1142 22 L1166 42 L1182 14 L1192 66 L1200 66 L1200 120 Z' fill='%237A2224'/%3E%3Cpath d='M58 34 Q600 98 1142 34' fill='none' stroke='%23541517' stroke-width='8'/%3E%3C/svg%3E")
+    no-repeat center bottom / 100% 100%;
+}
+.eave::after {
+  content: ""; position: absolute; left: 50%; top: 32%; transform: translate(-50%, -50%);
+  width: 13px; height: 13px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, var(--gold-light), var(--gold));
+  box-shadow: 0 0 0 3px rgba(122,34,36,.9);
+}
+
+/* ----- 5. 導覽列 --------------------------------------------------------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 80; display: flex; align-items: center; justify-content: space-between;
+  padding: .85rem clamp(1rem, 4vw, 2.4rem); transition: background .4s, box-shadow .4s, border-color .4s;
+  border-bottom: 3px solid transparent;
+}
+.nav.scrolled { background: rgba(241,234,216,.95); backdrop-filter: blur(8px); box-shadow: 0 6px 22px -14px rgba(40,28,18,.55); border-bottom-color: var(--terra); }
+.brand { display: flex; align-items: center; gap: .65rem; }
+.brand .seal { width: 46px; height: 46px; flex: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)); transition: filter .4s; }
+.brand b { font-family: var(--serif); font-size: 1.22rem; line-height: 1.05; display: block; color: var(--paper); text-shadow: 0 2px 10px rgba(0,0,0,.55); transition: color .4s, text-shadow .4s; }
+.brand small { font-family: var(--sans); font-weight: 600; letter-spacing: .2em; font-size: .62rem; color: var(--gold-light); text-shadow: 0 1px 6px rgba(0,0,0,.55); transition: color .4s, text-shadow .4s; }
+.nav-links { display: flex; align-items: center; gap: .2rem; }
+.nav-links a { font-size: .92rem; font-weight: 700; padding: .45rem .8rem; border-radius: 3px; color: var(--paper); text-shadow: 0 1px 8px rgba(0,0,0,.6); transition: color .3s, background .3s, text-shadow .3s; }
+.nav-links a:hover { background: rgba(241,234,216,.2); }
+.nav.scrolled .brand .seal { filter: drop-shadow(0 2px 5px rgba(90,61,41,.35)); }
+.nav.scrolled .brand b { color: var(--terra); text-shadow: none; }
+.nav.scrolled .brand small { color: var(--wood); text-shadow: none; }
+.nav.scrolled .nav-links a { color: var(--ink); text-shadow: none; }
+.nav.scrolled .nav-links a:hover { background: rgba(122,34,36,.1); color: var(--terra); }
+
+.audio-btn { display: inline-flex; align-items: center; gap: .55rem; padding: .5rem .95rem; border-radius: 3px; background: var(--ink); color: var(--paper); font-size: .82rem; letter-spacing: .05em; box-shadow: 0 4px 0 rgba(0,0,0,.35); transition: transform .25s, background .3s; }
+.audio-btn:hover { transform: translateY(-2px); }
+.audio-btn.playing { background: var(--terra); }
+.audio-btn .bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.audio-btn .bars i { width: 3px; background: currentColor; border-radius: 2px; height: 4px; transition: height .2s; }
+.audio-btn.playing .bars i { animation: eq .9s ease-in-out infinite; }
+.audio-btn.playing .bars i:nth-child(2){ animation-delay:.15s } .audio-btn.playing .bars i:nth-child(3){ animation-delay:.3s } .audio-btn.playing .bars i:nth-child(4){ animation-delay:.45s }
+@keyframes eq { 0%,100%{height:4px} 50%{height:14px} }
+.nav-toggle { display: none; font-size: 1.6rem; color: var(--paper); text-shadow: 0 1px 8px rgba(0,0,0,.6); transition: color .4s, text-shadow .4s; }
+.nav.scrolled .nav-toggle { color: var(--terra); text-shadow: none; }
+
+/* ----- 6. 首頁 Hero ------------------------------------------------------ */
+.hero { min-height: 100vh; display: grid; place-items: center; text-align: center; color: var(--paper); overflow: hidden; background: var(--grad-sea); isolation: isolate; }
+.hero::after { content:""; position:absolute; inset:0; z-index:-1; background: radial-gradient(130% 90% at 50% 12%, transparent 38%, rgba(8,40,48,.82) 100%); }
+.hero .lamp { position:absolute; top:15%; left:50%; transform:translateX(-50%); z-index:-1; width:180px; height:180px; border-radius:50%;
+  background: radial-gradient(circle, #F6E0A0 0%, var(--gold) 50%, #8A5A12 100%); box-shadow: 0 0 90px 30px rgba(197,155,39,.45); animation: lampflicker 5s ease-in-out infinite; }
+@keyframes lampflicker { 0%,100%{ opacity:.92; transform:translateX(-50%) scale(1) } 50%{ opacity:1; transform:translateX(-50%) scale(1.03) } }
+.hero .skyline { position:absolute; left:0; right:0; bottom:120px; z-index:0; height:120px; opacity:.45; }
+.hero-inner { z-index:2; padding: clamp(5rem,12vh,8rem) 1.3rem 9rem; width:min(92%,880px); }
+.hero .tag { font-family: var(--sans); font-weight:700; letter-spacing:.5em; font-size:.8rem; opacity:.92; text-shadow:0 2px 8px rgba(0,0,0,.5); }
+.hero h1 { font-size: clamp(2.3rem,7vw,4.5rem); margin:1.1rem 0; text-shadow:0 6px 26px rgba(0,0,0,.5); }
+.hero h1 .accent { color: var(--gold-light); }
+.hero p.lead { max-width:560px; margin:0 auto 2.2rem; font-size:clamp(1rem,2.2vw,1.16rem); text-shadow:0 2px 10px rgba(0,0,0,.5); }
+.hero-cta { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.hero-seal { position:absolute; top:17%; right:clamp(4%,8vw,12%); z-index:3; width:96px; height:96px; border:3px solid var(--gold-light); border-radius:8px; color:var(--gold-light); display:grid; place-items:center; font-family:var(--serif); font-weight:900; transform:rotate(-6deg); text-align:center; box-shadow:0 0 0 5px rgba(197,155,39,.16); }
+.hero-seal span { font-size:1.5rem; line-height:1.1; writing-mode:vertical-rl; letter-spacing:.1em; }
+@media (max-width:640px){ .hero-seal { display:none; } }
+.hero-waves { position:absolute; left:0; right:0; bottom:-2px; z-index:1; line-height:0; }
+.hero-waves svg { width:100%; height:130px; }
+.hero-waves .w1 { animation: drift 14s linear infinite; } .hero-waves .w2 { animation: drift 9s linear infinite reverse; opacity:.5; }
+@keyframes drift { from{ transform:translateX(0) } to{ transform:translateX(-50%) } }
+.scroll-hint { position:absolute; bottom:1.3rem; left:50%; transform:translateX(-50%); z-index:3; font-size:.7rem; letter-spacing:.3em; color:var(--paper); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:.85; }
+.scroll-hint span { width:1px; height:32px; background:var(--paper); animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{ transform:scaleY(.3); opacity:.4 } 50%{ transform:scaleY(1); opacity:1 } }
+
+/* ----- 7. 漁翁故事 History ----------------------------------------------- */
+.history { padding: 5rem 0 5.5rem; }
+.scroll-paper { max-width: 920px; margin: 0 auto; background: var(--paper-warm); padding: clamp(1.8rem,4vw,3rem); box-shadow: var(--shadow-card); position: relative;
+  background-image: radial-gradient(rgba(120,90,40,.06) 1px, transparent 1.5px); background-size: 15px 15px; }
+.scroll-paper .intro { font-size: 1.06rem; color: var(--ink); margin: 0 0 2rem; }
+.scroll-paper .intro b { color: var(--terra); }
+.htimeline { position: relative; padding-left: .4rem; }
+.htimeline::before { content:""; position:absolute; left:10px; top:6px; bottom:6px; width:2px; background: var(--wood); opacity:.4; }
+.hevent { position: relative; padding: 0 0 1.7rem 2.4rem; }
+.hevent:last-child { padding-bottom: 0; }
+.hevent::before { content:""; position:absolute; left:4px; top:7px; width:14px; height:14px; border-radius:50%; background: var(--gold); box-shadow: 0 0 0 3px var(--paper-warm), 0 0 0 4px var(--wood); }
+.hevent .era { font-family: var(--serif); font-weight:900; color: var(--teal-dark); font-size: 1.08rem; }
+.hevent p { margin:.25rem 0 0; color: var(--ink); font-size:.97rem; }
+
+/* ----- 8. 歲時節慶 Culture（風化磚牆）---------------------------------- */
+.culture { padding: 5.5rem 0 6rem; color: var(--paper); }
+.culture::after { content:""; position:absolute; inset:0; pointer-events:none; background: radial-gradient(120% 85% at 50% 25%, transparent 35%, rgba(40,8,9,.6) 100%); }
+.culture .shell { position: relative; z-index: 1; }
+.culture .section-head h2 { color: var(--paper); text-shadow: 0 2px 12px rgba(0,0,0,.5); }
+.culture .section-head h2::after { background: var(--gold-light); }
+.culture .section-head p { color: rgba(241,234,216,.92); text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+.culture .eyebrow { color: var(--gold-light); }
+.culture-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1.6rem; }
+@media (max-width:760px){ .culture-grid { grid-template-columns:1fr; } }
+.culture-card { background: rgba(30,16,12,.5); padding:1.7rem; display:flex; gap:1.2rem; align-items:flex-start; box-shadow: 0 18px 40px -22px rgba(0,0,0,.7); }
+.culture-card .ic { width:66px; height:66px; flex:none; display:grid; place-items:center; position: relative; background: var(--paper);
+  clip-path: polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%); }
+.culture-card .ic::before { content:""; position:absolute; inset:4px; background: var(--ink); clip-path: polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%); }
+.culture-card .ic svg { width:38px; height:38px; position: relative; z-index:1; }
+.culture-card h3 { color: var(--gold-light); font-size:1.25rem; }
+.culture-card .sub { font-family: var(--sans); font-weight:700; color: rgba(226,190,92,.8); font-size:.72rem; letter-spacing:.12em; }
+.culture-card p { margin:.5rem 0 0; font-size:.92rem; color: rgba(241,234,216,.9); }
+
+/* ----- 9. 海天奇景 Scenic（真實照片 + 飛白墨框）------------------------ */
+.scenic { padding: 5.5rem 0 6rem; }
+.scenic-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1.8rem; }
+@media (max-width:760px){ .scenic-grid { grid-template-columns:1fr; } }
+.scenic-card { position: relative; min-height: 320px; cursor: pointer; color: var(--paper); overflow: hidden;
+  box-shadow: var(--shadow-card); transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; background: var(--ink); }
+.scenic-card:hover { transform: translateY(-8px); box-shadow: 0 32px 56px -22px rgba(40,28,18,.7); }
+.scenic-card .scene { position:absolute; inset:0; background-size: cover; background-position: center; transition: transform .8s ease; }
+.scenic-card:hover .scene { transform: scale(1.06); }
+.scenic-card .grad { position:absolute; inset:0; background: linear-gradient(180deg, transparent 30%, rgba(20,14,10,.25) 54%, rgba(20,14,10,.9) 100%); }
+.scenic-card .meta { position:absolute; left:0; right:0; bottom:0; padding:1.6rem 1.5rem; z-index:2; }
+.scenic-card .meta .no { font-family: var(--serif); font-weight:900; color: var(--gold-light); font-size:.82rem; letter-spacing:.1em; }
+.scenic-card .meta h3 { font-size:1.5rem; margin:.25rem 0 .35rem; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+.scenic-card .meta p { font-size:.9rem; opacity:.94; margin:0; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.scenic-card .more { position:absolute; top:1.1rem; right:1.1rem; z-index:2; width:38px; height:38px; border-radius:6px; background: rgba(20,14,10,.5); backdrop-filter: blur(3px); display:grid; place-items:center; font-size:1.2rem; border:1px solid rgba(226,190,92,.5); transition: background .3s, transform .3s; }
+.scenic-card:hover .more { background: var(--terra); transform: rotate(90deg); }
+/* 飛白墨框疊在照片上 */
+.scenic-card::after { content:""; position:absolute; inset:0; z-index:3; pointer-events:none; border:9px solid transparent; border-image: var(--ink-frame) 16 / 9px / 0 round; }
+
+/* ----- 10. 鹹鮮風味 Gastronomy（翻轉木牌）------------------------------ */
+.food { padding: 5.5rem 0 6rem; background: var(--paper-deep); }
+.food-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.6rem; }
+@media (max-width:880px){ .food-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:540px){ .food-grid { grid-template-columns:1fr; max-width:360px; margin-inline:auto; } }
+.flip { perspective: 1200px; height: 260px; }
+.flip-inner { position:relative; width:100%; height:100%; transition: transform .6s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; cursor:pointer; }
+.flip.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face { position:absolute; inset:0; backface-visibility:hidden; overflow:hidden; box-shadow: var(--shadow-soft); }
+.flip-front { color: var(--paper); }
+.flip-front .scene { position:absolute; inset:0; background-size:cover; background-position:center; }
+.flip-front::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 38%,rgba(20,14,10,.85)); }
+.flip-front .label { position:absolute; left:0; right:0; bottom:0; padding:1.2rem; z-index:1; }
+.flip-front .label h3 { font-size:1.4rem; text-shadow:0 2px 8px rgba(0,0,0,.6); }
+.flip-front .label .hint { font-size:.74rem; opacity:.88; display:inline-flex; gap:.3rem; margin-top:.3rem; }
+.flip-back { transform: rotateY(180deg); background: var(--paper-warm); padding:1.5rem; display:flex; flex-direction:column; justify-content:center; border:6px solid transparent; border-image: var(--ink-frame) 12 / 6px / 0 round; }
+.flip-back h3 { color: var(--terra); font-size:1.25rem; margin-bottom:.5rem; }
+.flip-back p { font-size:.9rem; color: var(--ink); margin:0 0 .8rem; }
+.flip-back .shop { font-size:.82rem; color: var(--teal-dark); font-weight:700; }
+.flip-back .shop::before { content:"📍 推薦・"; }
+
+/* ----- 11. 探活踩風 Planner（Google Maps 嵌入）------------------------- */
+.planner { padding: 5.5rem 0 6rem; }
+.route-tabs { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-bottom:2.4rem; }
+.route-tab { padding:.85rem 1.7rem; background: var(--paper-warm); color: var(--teal-dark); font-family: var(--serif); font-weight:900; font-size:1.02rem;
+  border:3px solid transparent; border-image: var(--ink-frame) 16 / 3px / 0 round; transition:.25s; }
+.route-tab .sub { display:block; font-family: var(--sans); font-weight:500; font-size:.7rem; color: var(--terra); letter-spacing:.05em; }
+.route-tab:hover { transform: translateY(-2px); }
+.route-tab.active { background: var(--grad-terra); color: var(--paper); }
+.route-tab.active .sub { color: var(--gold-light); }
+
+.planner-body { display:grid; grid-template-columns: .85fr 1.15fr; gap:2rem; align-items:start; }
+@media (max-width:860px){ .planner-body { grid-template-columns:1fr; } }
+
+.timeline { position: relative; }
+.timeline::before { content:""; position:absolute; left:20px; top:8px; bottom:8px; width:2px; background: repeating-linear-gradient(var(--terra) 0 8px, transparent 8px 15px); }
+.stop { position:relative; padding:0 0 1rem 3.3rem; }
+.stop button { width:100%; text-align:left; background: var(--paper-warm); padding:.85rem 1.1rem; box-shadow: var(--shadow-soft); border:3px solid transparent; border-image: var(--ink-frame) 12 / 3px / 0 round; transition:.25s; cursor:pointer; }
+.stop button:hover { transform: translateX(3px); }
+.stop.active button { background: #FBF3DD; box-shadow: 0 0 0 2px var(--terra), var(--shadow-soft); }
+.stop .dot { position:absolute; left:8px; top:10px; width:26px; height:26px; border-radius:50%; background: var(--paper); border:3px solid var(--terra); z-index:2; display:grid; place-items:center; font-family:var(--serif); font-weight:900; color:var(--terra); font-size:.8rem; }
+.stop.active .dot { background: var(--terra); color: var(--paper); }
+.stop .time { font-family:var(--serif); font-weight:900; color: var(--terra); font-size:.8rem; }
+.stop h4 { margin:.1rem 0 .25rem; color: var(--ink); font-size:1.06rem; }
+.stop p { margin:0; font-size:.86rem; color: var(--ink-soft); }
+
+/* 木框 Google 地圖 */
+.map-col { position: sticky; top: 90px; }
+.map-frame { padding: 14px; border-radius: 4px; background:
+  repeating-linear-gradient(90deg, rgba(0,0,0,.10) 0 3px, transparent 3px 9px),
+  linear-gradient(180deg, #5A3D29, #3F2A1C);
+  box-shadow: inset 0 0 0 2px rgba(197,155,39,.3), var(--shadow-card); position: relative; }
+/* 四角螺釘 */
+.map-frame::before, .map-frame::after { content:""; position:absolute; width:9px; height:9px; border-radius:50%; background: radial-gradient(circle at 35% 35%, var(--gold-light), #6B4A12); }
+.map-frame::before { top:6px; left:6px; box-shadow: calc(100% + 0px) 0 0 -0px transparent; }
+.map-frame .screw { position:absolute; width:9px; height:9px; border-radius:50%; background: radial-gradient(circle at 35% 35%, var(--gold-light), #6B4A12); }
+.map-frame .screw.tr { top:6px; right:6px; } .map-frame .screw.bl { bottom:6px; left:6px; } .map-frame .screw.br { bottom:6px; right:6px; }
+.map-frame::after { top:6px; right:6px; } /* 備援 */
+.map-frame iframe { display:block; width:100%; height:380px; border:0; background: var(--paper-deep); }
+.map-cap { text-align:center; font-size:.78rem; color: var(--ink-soft); margin:.5rem 0 1rem; }
+.btn-nav { display:flex; align-items:center; justify-content:center; gap:.5rem; width:100%; padding:.95rem 1rem;
+  background: linear-gradient(180deg, #2A8FA3, var(--teal)); color:#fff; font-family:var(--serif); font-weight:900; font-size:1rem; letter-spacing:.04em;
+  border-radius:4px; box-shadow: 0 5px 0 #0C3A44, inset 0 0 0 2px rgba(197,155,39,.3); transition: transform .2s, box-shadow .2s; }
+.btn-nav:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #0C3A44, inset 0 0 0 2px rgba(197,155,39,.3); }
+.btn-nav:active { transform: translateY(2px); box-shadow: 0 3px 0 #0C3A44; }
+
+/* ----- 12. 寄情漁翁島 DIY 明信片 -------------------------------------- */
+.postcard { padding: 5.5rem 0 6rem; color: var(--paper); background: var(--grad-sea); }
+.postcard .section-head h2 { color: var(--paper); } .postcard .section-head h2::after { background: var(--gold-light); }
+.postcard .section-head p { color: rgba(241,234,216,.9); } .postcard .eyebrow { color: var(--gold-light); }
+.pc-studio { position: relative; overflow: hidden; display:grid; grid-template-columns: 1fr 360px; gap:2rem; align-items:start; background: var(--paper); color: var(--ink); padding:2rem 1.8rem 1.8rem; box-shadow: var(--shadow-card); border:9px solid transparent; border-image: var(--ink-frame) 16 / 9px / 0 round; }
+@media (max-width:920px){ .pc-studio { grid-template-columns:1fr; } }
+.pc-stage { position:relative; }
+.pc-stage canvas { width:100%; height:auto; box-shadow: var(--shadow-card); touch-action:none; background: var(--teal-dark); display:block; }
+.pc-hint { font-size:.8rem; color: var(--ink-soft); margin:.7rem 0 0; text-align:center; }
+.pc-panel label { display:block; font-weight:700; color: var(--teal-dark); margin:1.05rem 0 .5rem; font-size:.9rem; }
+.pc-panel label:first-of-type { margin-top:0; }
+.pc-row { display:grid; grid-template-columns: repeat(3,1fr); gap:.5rem; }
+.pc-chip { position:relative; height:54px; overflow:hidden; border:3px solid transparent; color:var(--paper); font-size:.74rem; font-weight:700; text-shadow:0 1px 4px rgba(0,0,0,.6); transition:.25s; display:grid; place-items:end center; padding-bottom:.3rem; }
+.pc-chip .bg { position:absolute; inset:0; z-index:-1; background-size:cover; }
+.pc-chip.active { border-color: var(--terra); transform: translateY(-2px); }
+.sticker-tray { display:grid; grid-template-columns: repeat(4,1fr); gap:.5rem; }
+.sticker-btn { aspect-ratio:1; background: var(--paper-warm); border:1.5px solid var(--paper-deep); display:grid; place-items:center; transition:.2s; }
+.sticker-btn:hover { border-color: var(--terra); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.sticker-btn svg, .sticker-btn canvas { width:74%; height:74%; }
+.pc-panel textarea { width:100%; border:2px solid var(--paper-deep); padding:.7rem .9rem; font-family: var(--sans); font-size:.95rem; resize:none; background:#fff; color: var(--ink); transition:border .25s; }
+.pc-panel textarea:focus { outline:none; border-color: var(--teal); }
+.font-pick { display:flex; gap:.5rem; }
+.font-pick button { flex:1; padding:.55rem; border:2px solid var(--paper-deep); background:#fff; font-weight:700; color: var(--ink); transition:.2s; }
+.font-pick button.brush { font-family: var(--brush); font-size:1.2rem; }
+.font-pick button.active { border-color: var(--terra); background: rgba(122,34,36,.07); color: var(--terra); }
+.pc-actions { display:flex; gap:.6rem; margin-top:1.2rem; flex-wrap:wrap; }
+.btn-sm { padding:.7rem 1.1rem; font-weight:700; font-size:.88rem; flex:1; text-align:center; border-radius:3px; }
+.btn-dl { background: var(--grad-terra); color: var(--paper); box-shadow:0 4px 0 #3A0E10; }
+.btn-dl:hover { transform: translateY(-2px); box-shadow:0 6px 0 #3A0E10; }
+.btn-clear { background: var(--ink); color: var(--paper); box-shadow:0 4px 0 #1d1b1a; }
+.btn-clear:hover { transform: translateY(-2px); box-shadow:0 6px 0 #1d1b1a; }
+
+/* ----- 13. 頁尾 --------------------------------------------------------- */
+.footer { background: var(--ink); color: var(--paper); padding:3.4rem 0 2rem; text-align:center; }
+.footer .seal-pair { display:flex; justify-content:center; gap:2rem; margin-bottom:1.2rem; }
+.footer .seal-pair svg { width:58px; height:58px; }
+.footer h3 { color: var(--gold-light); font-size:1.4rem; }
+.footer .sub { font-family: var(--sans); color: var(--teal-light); letter-spacing:.2em; font-size:.82rem; }
+.footer .fnav { display:flex; justify-content:center; gap:1.3rem; flex-wrap:wrap; margin:1.5rem 0; }
+.footer .fnav a { font-size:.9rem; opacity:.8; transition:.25s; }
+.footer .fnav a:hover { opacity:1; color: var(--gold-light); }
+.footer small { opacity:.5; font-size:.78rem; }
+
+/* ----- 14. 燈箱 Modal --------------------------------------------------- */
+.modal { position:fixed; inset:0; z-index:120; display:none; align-items:center; justify-content:center; padding:1.2rem; background: rgba(20,14,10,.78); backdrop-filter: blur(6px); opacity:0; transition: opacity .35s; }
+.modal.open { display:flex; opacity:1; }
+.modal-card { background: var(--paper); overflow:hidden; width:min(720px,100%); max-height:90vh; overflow-y:auto; box-shadow: 0 40px 80px -20px rgba(0,0,0,.7); transform: translateY(24px) scale(.97); transition: transform .4s cubic-bezier(.2,.8,.2,1); border:8px solid transparent; border-image: var(--ink-frame) 14 / 8px / 0 round; }
+.modal.open .modal-card { transform:none; }
+.modal-hero { height:260px; position:relative; }
+.modal-hero .scene { position:absolute; inset:0; background-size:cover; background-position:center; }
+.modal-hero .close { position:absolute; top:1rem; right:1rem; width:40px; height:40px; border-radius:6px; background:rgba(20,14,10,.55); color:#fff; font-size:1.4rem; display:grid; place-items:center; z-index:2; }
+.modal-hero .seal { position:absolute; top:1rem; left:1rem; width:64px; height:64px; border:2px solid var(--gold-light); border-radius:6px; display:grid; place-items:center; color:var(--gold-light); transform:rotate(-6deg); background:rgba(20,14,10,.45); font-family:var(--serif); font-weight:900; z-index:2; }
+.modal-hero .grad { position:absolute; inset:0; background: linear-gradient(180deg, transparent 45%, rgba(20,14,10,.8)); }
+.modal-hero .title { position:absolute; bottom:1.2rem; left:1.5rem; color:#fff; z-index:2; text-shadow:0 2px 12px rgba(0,0,0,.6); }
+.modal-hero .title .eng { font-family: var(--sans); font-weight:700; color:var(--gold-light); font-size:.78rem; letter-spacing:.16em; }
+.modal-hero .title h3 { font-size:1.85rem; }
+.modal-body { padding:1.8rem; }
+.modal-body p { color: var(--ink); }
+.modal-body .facts { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; }
+.modal-body .facts span { background: rgba(30,107,123,.12); color: var(--teal-dark); padding:.4rem .9rem; border-radius:999px; font-size:.82rem; font-weight:700; }
+
+/* ----- 15. Reveal ------------------------------------------------------- */
+.reveal { opacity:0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity:1; transform:none; }
+
+/* ----- 16. RWD ---------------------------------------------------------- */
+@media (max-width:860px){
+  .nav-links { position:fixed; inset:0 0 0 auto; width:min(78vw,320px); z-index:90; flex-direction:column; align-items:flex-start; justify-content:center; gap:1rem; padding:2.5rem; background: var(--paper); box-shadow:-10px 0 40px -10px rgba(0,0,0,.45); transform: translateX(100%); transition: transform .4s ease; }
+  .nav-links.open { transform:none; }
+  .nav-links a { font-size:1.1rem; color: var(--ink); text-shadow:none; }
+  .nav-links a:hover { background: rgba(122,34,36,.1); color: var(--terra); }
+  .nav-toggle { display:block; }
+  .map-col { position: static; }
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+  .reveal { opacity:1; transform:none; }
+}
