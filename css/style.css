@@ -228,8 +228,9 @@ section { position: relative; }
 
 /* ----- 9. 海天奇景 Scenic（真實照片 + 飛白墨框）------------------------ */
 .scenic { padding: 5.5rem 0 6rem; }
-.scenic-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:1.8rem; }
-@media (max-width:760px){ .scenic-grid { grid-template-columns:1fr; } }
+.scenic-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.6rem; }
+@media (max-width:900px){ .scenic-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .scenic-grid { grid-template-columns:1fr; } }
 .scenic-card { position: relative; min-height: 320px; cursor: pointer; color: var(--paper); overflow: hidden;
   box-shadow: var(--shadow-card); transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s; background: var(--ink); }
 .scenic-card:hover { transform: translateY(-8px); box-shadow: 0 32px 56px -22px rgba(40,28,18,.7); }

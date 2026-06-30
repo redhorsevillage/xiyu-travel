@@ -13,6 +13,9 @@
     whale:      "linear-gradient(180deg,#1E6B7B 0 60%,#2C2A28 60%)",
     weir:       "linear-gradient(180deg,#1E6B7B 0%,#124E5B 100%)",
     sunset:     "linear-gradient(180deg,#7A2224 0%,#C59B27 40%,#E9DEC2 58%,#1E6B7B 58%,#124E5B 100%)",
+    whalecave:  "linear-gradient(180deg,#1E6B7B 0 56%,#2C2A28 56%)",
+    bridge:     "linear-gradient(180deg,#1E6B7B 0 62%,#3E3C3A 62%)",
+    neian:      "linear-gradient(180deg,#1E6B7B 0 52%,#D9CDB0 52%)",
     food_tea:    "linear-gradient(135deg,#C59B27,#7A4A18)",
     food_taro:   "linear-gradient(135deg,#6B4E7A,#3E3C3A)",
     food_cactus: "linear-gradient(135deg,#1E6B7B,#7A2224)",
@@ -75,6 +78,9 @@
     basalt: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Daguoye_Columnar_Basalt_reflection_in_water.jpg',
     lighthouse: 'https://upload.wikimedia.org/wikipedia/commons/1/18/West_Islet_Lighthouse.JPG',
     whale: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chixi_Columnar_Basalt_in_Taiwan_Penghu_%E6%BE%8E%E6%B9%96%E6%B1%A0%E8%A5%BF%E5%B2%A9%E7%80%91.jpg',
+    whalecave: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Whale_Cave_in_Penghu_-_side.JPG',
+    bridge: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/%E5%B0%8F%E6%B1%A0%E8%A7%92_%E9%9B%99%E6%9B%B2%E6%A9%8B_01.jpg',
+    neian: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/%E5%85%A7%E5%9E%B5%E9%81%8A%E6%86%A9%E5%8D%80_-_panoramio.jpg',
   };
   const bgLayer = (key) => `url('${WIKI[key]}') center/cover no-repeat, ${SCENES[key]}`;
 
@@ -95,6 +101,18 @@
       tease: '柱狀玄武岩如瀑布傾瀉，退潮九孔池水鏡的魔幻海景。',
       desc: '池西岩石（俗稱「池西岩瀑」）是一整片向海傾瀉的柱狀玄武岩，狀如凝固的黑色瀑布。岩前退潮後顯露的廢棄九孔養殖池形成幾何狀的天然水鏡，與嶙峋黑岩交織出超現實的海景，是近年爆紅的攝影祕境。',
       facts: ['柱狀玄武岩岩瀑', '九孔池水鏡', '海蝕地貌', '攝影祕境'] },
+    { id: 'whalecave', no: '景點 05', eng: 'WHALE CAVE', title: '小門鯨魚洞',
+      tease: '黑色玄武岩海蝕拱門，遠望宛如鯨魚伏臥。',
+      desc: '小門嶼的鯨魚洞，是海浪長年侵蝕玄武岩海崖鑿出的天然海蝕拱門，遠望宛如一頭俯臥汲水的鯨魚。站在洞旁聽濤聲穿過岩拱，是小門嶼最受歡迎的地質奇景。',
+      facts: ['海蝕拱門', '玄武岩海崖', '小門嶼地質', '聽濤奇景'] },
+    { id: 'bridge', no: '景點 06', eng: 'TWIN-CURVE BRIDGE', title: '小池角雙曲橋',
+      tease: '伸入碧海的雪白雙弧曲橋，海上散步的浪漫。',
+      desc: '小池角雙曲橋以兩道優雅的弧線延伸入海，盡頭設有觀海涼亭。雪白橋身襯著澎湖湛藍的海水，是近年爆紅的網美打卡與賞夕祕境，退潮時還能近距離觀察潮間帶生態。',
+      facts: ['雙弧觀海曲橋', '潮間帶生態', '網美打卡點', '賞夕祕境'] },
+    { id: 'neian', no: '景點 07', eng: 'NEIAN BEACH', title: '內垵沙灘',
+      tease: '金黃沙灣與三仙塔相望的靜謐海岸。',
+      desc: '內垵遊憩區擁有西嶼少見的金黃沙灘與平緩海灣，沿著海堤木棧道散步，可遠望高地上的三仙塔。這裡人潮稀少、海水清澈，是西嶼戲水、賞夕與放空的祕境海岸。',
+      facts: ['金黃沙灘', '海堤木棧道', '三仙塔相望', '戲水賞夕'] },
   ];
 
   $('#scenicGrid').innerHTML = SPOTS.map((s) => `
@@ -133,7 +151,7 @@
     { scene: 'food_cactus', title: '仙人掌冰', desc: '以澎湖野生仙人掌果實製成，鮮紅酸甜、消暑解膩，是澎湖夏日限定的代表冰品。', shop: '西嶼仙人掌冰店' },
     { scene: 'food_squid', title: '小管麵線', desc: '清晨現撈的鮮甜小管，與細麵線同煮，湯頭清爽鮮美，吃得到大海的味道。', shop: '外垵漁港海鮮' },
     { scene: 'food_seafood', title: '海港海鮮料理', desc: '石斑、象魚、龍蝦與各式現流魚貨，清蒸快炒最能嚐出西嶼海鮮的鮮甜本味。', shop: '內垵・外垵海產店' },
-    { scene: 'food_brittle', title: '鹹餅・花生酥', desc: '澎湖傳統鹹餅外酥內香，搭配在地花生酥，是最受歡迎的伴手禮零嘴。', shop: '西嶼傳統餅舖' },
+    { scene: 'food_brittle', title: '枕頭餅', desc: '外型如小枕頭的澎湖傳統糕餅，外皮酥香、內餡微甜不膩，咬下滿是古早味，是西嶼最具代表性的伴手禮之一。', shop: '自造興古早味枕頭餅' },
   ];
   $('#foodGrid').innerHTML = FOODS.map((f) => `
     <div class="flip" tabindex="0" role="button" aria-label="${f.title}，點擊翻面看介紹">

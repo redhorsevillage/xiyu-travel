@@ -27,11 +27,8 @@
   ===================================================================== */
   const BACKGROUNDS = [
     { id: 'erkan', label: '二崁古厝' },
-    { id: 'basalt', label: '玄武岩' },
+    { id: 'basalt', label: '大菓葉玄武岩' },
     { id: 'lighthouse', label: '漁翁燈塔' },
-    { id: 'whale', label: '鯨魚洞' },
-    { id: 'weir', label: '雙心石滬' },
-    { id: 'sunset', label: '夕陽海岸' },
   ];
 
   function paintBackground(id) {
@@ -107,27 +104,6 @@
         c.fillText('石', 0, -16); c.fillText('敢', 0, 4); c.fillText('當', 0, 24);
       },
     },
-    diver: {
-      label: '討海女',
-      draw(c) {
-        // 臉
-        c.fillStyle = C.skin; c.beginPath(); c.arc(0, 6, 22, 0, 7); c.fill();
-        // 頭巾（花布）
-        c.fillStyle = C.brick;
-        c.beginPath(); c.moveTo(-28, 6); c.quadraticCurveTo(-30, -34, 0, -36); c.quadraticCurveTo(30, -34, 28, 6);
-        c.quadraticCurveTo(20, -6, 0, -8); c.quadraticCurveTo(-20, -6, -28, 6); c.fill();
-        // 兩側垂巾
-        c.beginPath(); c.moveTo(-28, 4); c.lineTo(-34, 30); c.lineTo(-20, 24); c.closePath(); c.fill();
-        c.beginPath(); c.moveTo(28, 4); c.lineTo(34, 30); c.lineTo(20, 24); c.closePath(); c.fill();
-        // 花布白點
-        c.fillStyle = C.stone;
-        [[-14, -20], [4, -26], [18, -16], [-6, -14]].forEach((p) => { c.beginPath(); c.arc(p[0], p[1], 2.4, 0, 7); c.fill(); });
-        // 五官
-        c.fillStyle = C.basaltD;
-        c.beginPath(); c.arc(-8, 4, 2.2, 0, 7); c.fill(); c.beginPath(); c.arc(8, 4, 2.2, 0, 7); c.fill();
-        c.strokeStyle = C.brickWarm; c.lineWidth = 2; c.beginPath(); c.arc(0, 10, 7, 0.15 * Math.PI, 0.85 * Math.PI); c.stroke();
-      },
-    },
     coral: {
       label: '咾咕石',
       draw(c) {
@@ -155,20 +131,6 @@
         for (let y = -28; y < 44; y += 12) { c.beginPath(); c.moveTo(-4, y); c.lineTo(4, y); c.stroke(); }
       },
     },
-    weir: {
-      label: '雙心石滬',
-      draw(c) {
-        c.strokeStyle = C.stone; c.lineWidth = 6; c.lineCap = 'round'; c.lineJoin = 'round';
-        const heart = (cx, sc) => {
-          c.beginPath();
-          c.moveTo(cx, 24 * sc + 6);
-          c.bezierCurveTo(cx - 34 * sc, -2 * sc, cx - 18 * sc, -30 * sc, cx, -14 * sc);
-          c.bezierCurveTo(cx + 18 * sc, -30 * sc, cx + 34 * sc, -2 * sc, cx, 24 * sc + 6);
-          c.stroke();
-        };
-        heart(-12, 0.8); heart(14, 1);
-      },
-    },
     boat: {
       label: '大目船',
       draw(c) {
@@ -192,7 +154,7 @@
      狀態
   ===================================================================== */
   let state = {
-    bg: 'sunset',
+    bg: 'erkan',
     msg: '',
     font: 'serif',
     items: [],          // {type, x, y, size}
@@ -241,9 +203,8 @@
     ctx.fillStyle = 'rgba(241,234,216,.92)'; ctx.fillRect(40, H - boxH - 38, W - 80, boxH);
     ctx.strokeStyle = C.brickWarm; ctx.lineWidth = 3; ctx.strokeRect(47, H - boxH - 31, W - 94, boxH - 14);
     ctx.fillStyle = C.basaltD; ctx.textBaseline = 'top'; ctx.textAlign = 'left';
-    const font = state.font === 'brush' ? '"Ma Shan Zheng", "Noto Serif TC", cursive' : '"Noto Serif TC", serif';
-    const fsize = state.font === 'brush' ? 34 : 28;
-    ctx.font = `${state.font === 'brush' ? '400' : '700'} ${fsize}px ${font}`;
+    const font = state.font === 'sans' ? '"Noto Sans TC", sans-serif' : '"Noto Serif TC", serif';
+    ctx.font = `700 28px ${font}`;
     wrapText(msg, 70, H - boxH - 18, W - 150, fsize + 12);
 
     // 左上標題
