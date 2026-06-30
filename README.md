@@ -93,6 +93,8 @@ python -m http.server 8000
 - 字體：[Google Fonts](https://fonts.google.com/)
 - 地圖：[Google Maps](https://www.google.com/maps)
 
+> 程式碼採 [MIT License](LICENSE)；第三方照片／字體／地圖的授權詳見 [NOTICE.md](NOTICE.md)。
+
 ---
 
 ## 📜 版本演進
