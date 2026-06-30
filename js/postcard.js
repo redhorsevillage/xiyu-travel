@@ -19,7 +19,7 @@
   const C = {
     brick: '#7A2224', brickWarm: '#A8351F', stone: '#F1EAD8', stoneSh: '#D9CDB0',
     basalt: '#5A5550', basaltD: '#3E3C3A', teal: '#1E6B7B', tealL: '#2E8FA3',
-    gold: '#C59B27', green: '#5E7A3E', greenD: '#445A2C', skin: '#E4C39A', gull: '#F1EAD8',
+    gold: '#C59B27', green: '#5E7A3E', greenD: '#445A2C', skin: '#E4C39A',
   };
 
   /* =====================================================================
@@ -65,24 +65,6 @@
         ctx.moveTo(W * 0.24 - 18, H * 0.6); ctx.lineTo(W * 0.24 - 11, H * 0.26);
         ctx.lineTo(W * 0.24 + 11, H * 0.26); ctx.lineTo(W * 0.24 + 18, H * 0.6); ctx.closePath(); ctx.fill();
         ctx.fillStyle = C.brick; ctx.fillRect(W * 0.24 - 12, H * 0.26, 24, 12);
-        break;
-      case 'whale':
-        g.addColorStop(0, '#1E6B7B'); g.addColorStop(0.64, '#124E5B'); g.addColorStop(0.6401, '#3E3C3A'); g.addColorStop(1, '#242220');
-        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-        ctx.fillStyle = '#242220'; ctx.beginPath(); ctx.ellipse(W * 0.5, H * 0.78, 150, 90, 0, Math.PI, 0); ctx.fill();
-        ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(W * 0.5, H * 0.82, 55, 45, 0, Math.PI, 0); ctx.fill();
-        break;
-      case 'weir':
-        g.addColorStop(0, '#1E6B7B'); g.addColorStop(0.7, '#124E5B'); g.addColorStop(1, '#0E3D47');
-        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-        ctx.strokeStyle = '#F1EAD8'; ctx.lineWidth = 14; ctx.lineCap = 'round';
-        ctx.beginPath(); ctx.ellipse(W * 0.5, H * 0.74, 150, 88, 0, Math.PI * 0.04, Math.PI * 0.96); ctx.stroke();
-        break;
-      case 'sunset':
-        g.addColorStop(0, '#7A2224'); g.addColorStop(0.36, '#C59B27'); g.addColorStop(0.58, '#E9DEC2');
-        g.addColorStop(0.5801, '#1E6B7B'); g.addColorStop(1, '#124E5B');
-        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-        ctx.fillStyle = 'rgba(246,224,160,.95)'; ctx.beginPath(); ctx.arc(W * 0.68, H * 0.36, 66, 0, 7); ctx.fill();
         break;
       default:
         g.addColorStop(0, '#1E6B7B'); g.addColorStop(1, '#0E3D47'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
