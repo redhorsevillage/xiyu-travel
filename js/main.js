@@ -27,6 +27,9 @@
     food_squid:  "linear-gradient(135deg,#1E6B7B,#124E5B)",
     food_seafood:"linear-gradient(135deg,#7A2224,#541517)",
     food_brittle:"linear-gradient(135deg,#C59B27,#7A2224)",
+    food_friedcake:"linear-gradient(135deg,#D9A441,#7A2224)",
+    food_douhua: "linear-gradient(135deg,#E9DEC2,#C59B27)",
+    food_guabao: "linear-gradient(135deg,#E9DEC2,#7A2224)",
   };
   window.XIYU = window.XIYU || {};
   window.XIYU.SCENES = SCENES;
@@ -177,18 +180,23 @@
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
   /* ---- 6. 鹹鮮風味 翻轉木牌 ---- */
+  // 每排三種，依指定順序；未指定店家者以在地代表/Google 高評價店家為主
   const FOODS = [
-    { scene: 'food_tea', title: '二崁杏仁茶', desc: '二崁聚落手工現磨的杏仁茶，溫潤香醇，搭配脆餅是巷弄裡最暖心的古早味。', shop: '二崁聚落・杏仁茶舖' },
-    { scene: 'food_taro', title: '澎湖芋頭餐', desc: '在地栽種的香芋鬆軟綿密，可做芋籤、芋粿與芋頭冰，是西嶼的招牌農產滋味。', shop: '西嶼在地餐館' },
-    { scene: 'food_cactus', title: '仙人掌冰', desc: '以澎湖野生仙人掌果實製成，鮮紅酸甜、消暑解膩，是澎湖夏日限定的代表冰品。', shop: '西嶼仙人掌冰店' },
-    { scene: 'food_squid', title: '小管麵線', desc: '清晨現撈的鮮甜小管，與細麵線同煮，湯頭清爽鮮美，吃得到大海的味道。', shop: '外垵漁港海鮮' },
-    { scene: 'food_seafood', title: '海港海鮮料理', desc: '石斑、象魚、龍蝦與各式現流魚貨，清蒸快炒最能嚐出西嶼海鮮的鮮甜本味。', shop: '內垵・外垵海產店' },
-    { scene: 'food_brittle', title: '枕頭餅', desc: '外型如小枕頭的澎湖傳統糕餅，外皮酥香、內餡微甜不膩，咬下滿是古早味，是西嶼最具代表性的伴手禮之一。', shop: '自造興古早味枕頭餅' },
+    { scene: 'food_cactus', img: 'https://upload.wikimedia.org/wikipedia/commons/5/55/Prickly_Pear_Fruit_%2850618126823%29.jpg', title: '仙人掌冰', desc: '澎湖野生仙人掌果實製成，鮮紅酸甜、沁涼消暑，是夏日限定的代表冰品。', shop: '易家仙人掌冰' },
+    { scene: 'food_squid', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Oyster_Vermicelli.jpg', title: '小管麵線', desc: '清晨現撈的鮮甜小管與細麵線同煮，湯頭清爽，吃得到大海的鮮味。', shop: '小萍的店' },
+    { scene: 'food_friedcake', title: '大池炸粿・鯊魚排', desc: '蚵嗲、菜粿與酥炸鯊魚排現點現炸，外酥內鮮，是西嶼海邊的銅板美味。', shop: '大池角・在地炸粿' },
+    { scene: 'food_tea', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/ACupOfApricotKernelTea20220111.jpg', title: '二崁杏仁茶', desc: '二崁聚落手工現磨的杏仁茶，溫潤香醇，搭配脆餅是巷弄裡最暖心的古早味。', shop: '二崁聚落・杏仁茶舖' },
+    { scene: 'food_douhua', img: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Peanut_Douhua.jpg', title: '小池角豆花', desc: '純手工豆花綿密滑順，淋上糖水與配料，是小池角海邊的沁涼甜點。', shop: '小池角豆花' },
+    { scene: 'food_brittle', title: '枕頭餅', desc: '外型如小枕頭的澎湖傳統糕餅，外皮酥香、內餡微甜不膩，滿是古早味。', shop: '自造興古早味枕頭餅' },
+    { scene: 'food_friedcake', title: '阿綢炸粿', desc: '合界在地人氣炸粿，金黃酥脆、用料實在，是西嶼必嚐的下午點心。', shop: '阿綢炸粿（合界）' },
+    { scene: 'food_seafood', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Steam_Grouper_dish_at_Ristorante.jpg', title: '海港海鮮料理', desc: '石斑、象魚、龍蝦與各式現流魚貨，清蒸快炒最能嚐出西嶼海鮮的鮮甜本味。', shop: '外垵漁港・海鮮餐廳' },
+    { scene: 'food_guabao', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Taiwanese_Gua_Bao_%40_Bao_%26_Bing%2C_London.jpg', title: '外垵刈包', desc: '鬆軟刈包夾入滷得入味的爌肉與酸菜花生粉，是外垵漁村的暖胃古早味。', shop: '外垵・刈包' },
   ];
+  const foodBg = (f) => (f.img ? `url('${f.img}') center/cover no-repeat, ` : '') + SCENES[f.scene];
   $('#foodGrid').innerHTML = FOODS.map((f) => `
     <div class="flip" tabindex="0" role="button" aria-label="${f.title}，點擊翻面看介紹">
       <div class="flip-inner">
-        <div class="flip-face flip-front"><div class="scene" style="background:${SCENES[f.scene]}"></div>
+        <div class="flip-face flip-front"><div class="scene" style="background:${foodBg(f)}"></div>
           <div class="label"><h3>${f.title}</h3><span class="hint">↻ 點擊翻面看介紹</span></div></div>
         <div class="flip-face flip-back"><h3>${f.title}</h3><p>${f.desc}</p><span class="shop">${f.shop}</span></div>
       </div></div>`).join('');
