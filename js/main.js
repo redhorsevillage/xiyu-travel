@@ -90,6 +90,7 @@
     banyan: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/%E9%80%9A%E6%A2%81%E6%BC%81%E6%B8%AF_%287%29%E9%80%9A%E6%A2%81%E6%A6%95%E6%A8%B9%E5%89%8D.jpg',
     dream: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Dream_Beach_in_penghu.jpg',
     chima: 'https://upload.wikimedia.org/wikipedia/commons/5/53/%E8%B5%A4%E9%A6%AC%E8%A5%BF%E6%B8%AF%E6%B2%99%E7%81%98_Beach_in_Chima_west_port.jpg',
+    sanxianta: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/%E8%A5%BF%E5%B6%BC%E5%85%A7%E5%9E%B5%E5%A1%94%E5%85%AC%E5%A1%94%E5%A9%86_%28cropped%29.jpg',
   };
   const bgLayer = (key) => WIKI[key]
     ? `url('${WIKI[key]}') center/cover no-repeat, ${SCENES[key]}`
@@ -140,10 +141,10 @@
       tease: '守護台灣海峽百年的白色燈塔。',
       desc: '漁翁島燈塔（西嶼燈塔）始建於清乾隆年間，是台灣最早設立的燈塔，現存白色洋式塔身建於 1875 年。它矗立在西嶼最南端的崖上，純白塔身與蔚藍海天相映，百餘年來指引著台灣海峽往來的船隻。',
       facts: ['台灣最古老燈塔', '1875 洋式塔身', '國定古蹟', '夕陽名所'] },
-    { id: 'sanxianta', no: '景點 12', eng: 'SANXIAN PAGODA', title: '三仙塔',
-      tease: '佇立內垵高地的鎮風石塔，俯瞰漁港海灣。',
-      desc: '三仙塔矗立於內垵村的高地上，是昔日為鎮風止煞、護佑漁村而建的石塔。登上塔旁高地可俯瞰內垵漁港與遼闊海灣，是眺望西嶼海岸線與夕陽的絕佳據點。（本景點暫無公開授權實景照片，以示意底圖呈現。）',
-      facts: ['鎮風石塔', '內垵高地', '俯瞰漁港', '眺海觀夕'] },
+    { id: 'sanxianta', no: '景點 12', eng: 'SANXIAN PAGODA', title: '三仙塔・塔公塔婆',
+      tease: '內垵高地上的鎮風石塔，俯瞰漁港與海灣。',
+      desc: '內垵村高地上矗立著昔日為鎮風止煞、護佑漁村而建的鎮風石塔——「塔公塔婆」（三仙塔）。一高一低的石塔遙望台灣海峽，登上塔旁高地可俯瞰內垵漁港與遼闊海灣，是眺望西嶼海岸線與夕陽的絕佳據點。',
+      facts: ['鎮風石塔', '塔公塔婆', '內垵高地', '眺海觀夕'] },
   ];
 
   $('#scenicGrid').innerHTML = SPOTS.map((s) => `
