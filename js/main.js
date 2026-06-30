@@ -74,7 +74,7 @@
     erkan: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Erkan_Chen_Residence_Brotherhood.JPG',
     basalt: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Daguoye_Columnar_Basalt_reflection_in_water.jpg',
     lighthouse: 'https://upload.wikimedia.org/wikipedia/commons/1/18/West_Islet_Lighthouse.JPG',
-    whale: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Whale_Cave_in_Penghu_-_side.JPG',
+    whale: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chixi_Columnar_Basalt_in_Taiwan_Penghu_%E6%BE%8E%E6%B9%96%E6%B1%A0%E8%A5%BF%E5%B2%A9%E7%80%91.jpg',
   };
   const bgLayer = (key) => `url('${WIKI[key]}') center/cover no-repeat, ${SCENES[key]}`;
 
@@ -91,10 +91,10 @@
       tease: '守護台灣海峽百年的白色燈塔。',
       desc: '漁翁島燈塔（西嶼燈塔）始建於清乾隆年間，是台灣最早設立的燈塔，現存白色洋式塔身建於 1875 年。它矗立在西嶼最南端的崖上，純白塔身與蔚藍海天相映，百餘年來指引著台灣海峽往來的船隻。',
       facts: ['台灣最古老燈塔', '1875 洋式塔身', '國定古蹟', '夕陽名所'] },
-    { id: 'whale', no: '景點 04', eng: 'CHIXI ROCK', title: '池西岩石・九孔海蝕',
-      tease: '柱狀玄武岩與廢棄九孔池交織的魔幻海景。',
-      desc: '池西岩石（俗稱小門鯨魚洞一帶）的柱狀玄武岩海岸，與退潮後顯露的廢棄九孔養殖池，交織出幾何水鏡與嶙峋黑岩的超現實海景，是近年爆紅的攝影祕境。',
-      facts: ['柱狀玄武岩海岸', '九孔池水鏡', '海蝕地貌', '魔幻祕境'] },
+    { id: 'whale', no: '景點 04', eng: 'CHIXI ROCK', title: '池西岩石・池西岩瀑',
+      tease: '柱狀玄武岩如瀑布傾瀉，退潮九孔池水鏡的魔幻海景。',
+      desc: '池西岩石（俗稱「池西岩瀑」）是一整片向海傾瀉的柱狀玄武岩，狀如凝固的黑色瀑布。岩前退潮後顯露的廢棄九孔養殖池形成幾何狀的天然水鏡，與嶙峋黑岩交織出超現實的海景，是近年爆紅的攝影祕境。',
+      facts: ['柱狀玄武岩岩瀑', '九孔池水鏡', '海蝕地貌', '攝影祕境'] },
   ];
 
   $('#scenicGrid').innerHTML = SPOTS.map((s) => `
