@@ -2,7 +2,25 @@
 
 澎湖縣**西嶼鄉（漁翁島）**旅遊推廣概念網站 —— 以**古樸斑駁的漁港復古美學**呈現西嶼的歷史、人文、海天奇景與在地滋味，並整合 **Google 地圖互動路線**與**手作明信片**功能。
 
+[![Live Demo](https://img.shields.io/badge/🌊_線上展示-GitHub_Pages-1E6B7B?style=for-the-badge)](https://redhorsevillage.github.io/xiyu-travel/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-C59B27.svg?style=for-the-badge)](LICENSE)
+![HTML/CSS/JS](https://img.shields.io/badge/Stack-HTML_·_CSS_·_JS-7A2224?style=for-the-badge)
+
+> 🔗 **線上展示**：<https://redhorsevillage.github.io/xiyu-travel/>
 > 本站為設計示範作品，景點與店家資訊請以澎湖縣政府觀光發展處公告為準。
+
+---
+
+## 🖼️ 預覽
+
+![首頁 Hero](docs/screenshots/hero.png)
+
+<details>
+<summary>📜 點此展開「全站總覽」長截圖</summary>
+
+![全站總覽](docs/screenshots/full.png)
+
+</details>
 
 ---
 
