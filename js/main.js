@@ -71,10 +71,10 @@
 
   /* ---- 5. 海天奇景（真實照片 + 後備底色）+ 燈箱 ---- */
   const WIKI = {
-    erkan: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/%E4%BA%8C%E5%B4%81%E5%8F%A4%E5%8E%9D.jpg',
-    basalt: 'https://upload.wikimedia.org/wikipedia/commons/7/77/%E6%BE%8E%E6%B9%96%E5%A4%A7%E8%8F%93%E8%91%89%E7%8E%84%E6%AD%A6%E5%B2%A9.jpg',
-    lighthouse: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Fisher_Island_Lighthouse_in_Taiwan_Penghu_%E6%BE%8E%E6%B9%96%E8%A5%BF%E5%B6%BC%E6%BC%81%E7%BF%81%E5%B3%B6%E7%87%88%E5%A1%94.jpg',
-    whale: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Chixi_Columnar_Basalt_in_Taiwan_Penghu_%E6%BE%8E%E6%B9%96%E6%B1%A0%E8%A5%BF%E5%B2%A9%E7%80%91.jpg',
+    erkan: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Erkan_Chen_Residence_Brotherhood.JPG',
+    basalt: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Daguoye_Columnar_Basalt_reflection_in_water.jpg',
+    lighthouse: 'https://upload.wikimedia.org/wikipedia/commons/1/18/West_Islet_Lighthouse.JPG',
+    whale: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Whale_Cave_in_Penghu_-_side.JPG',
   };
   const bgLayer = (key) => `url('${WIKI[key]}') center/cover no-repeat, ${SCENES[key]}`;
 
