@@ -205,7 +205,7 @@
     ctx.fillStyle = C.basaltD; ctx.textBaseline = 'top'; ctx.textAlign = 'left';
     const font = state.font === 'sans' ? '"Noto Sans TC", sans-serif' : '"Noto Serif TC", serif';
     ctx.font = `700 28px ${font}`;
-    wrapText(msg, 70, H - boxH - 18, W - 150, fsize + 12);
+    wrapText(msg, 70, H - boxH - 18, W - 150, 40);
 
     // 左上標題
     ctx.fillStyle = 'rgba(241,234,216,.96)'; ctx.font = '900 26px "Noto Serif TC", serif'; ctx.textAlign = 'left';
